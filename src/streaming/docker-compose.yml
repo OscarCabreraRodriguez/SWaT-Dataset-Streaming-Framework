@@ -24,7 +24,7 @@ services:
       - INFLUXDB_DB_ADMIN_PASSWORD=Password1
     restart: on-failure:10
     ports:
-      - 8086:8086
+      - '8086:8086'
     networks:
       - comp
 
