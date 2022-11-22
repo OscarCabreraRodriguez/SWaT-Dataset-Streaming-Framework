@@ -23,6 +23,8 @@ services:
       - .env
     depends_on:
       - influxdb
+    networks:
+      - comp
 
   grafana:
     image: grafana/grafana-oss:8.4.3
@@ -32,6 +34,8 @@ services:
       - influxdb
     ports:
       - ${GRAFANA_PORT}:3000
+    networks:
+      - comp
 
   zookeeper:
     image: 'bitnami/zookeeper:latest'
@@ -39,6 +43,8 @@ services:
       - '2181:2181'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - comp
 
   kafka:
     image: 'bitnami/kafka:2.8.1'
@@ -56,6 +62,8 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
+    networks:
+      - comp
 
   kafka_manager:
     image: hlebalbau/kafka-manager:stable
@@ -66,6 +74,8 @@ services:
     environment:
       ZK_HOSTS: "zookeeper:2181"
       APPLICATION_SECRET: "random-secret"
+    networks:
+      - comp
   
   spark:
     image: "jupyter/pyspark-notebook"
@@ -79,7 +89,8 @@ services:
       - type: bind
         source: ./
         target: /home/jovyan/work
-      
+    networks:
+      - comp
 
     depends_on:
       - zookeeper 
