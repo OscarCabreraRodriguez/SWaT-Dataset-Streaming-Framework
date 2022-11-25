@@ -1,4 +1,7 @@
-![Dashboard 1] (pinaryazgandashboard.png)
+# Dashboards on Grafana
 
-![Dashboard 2] (swat_dashboard.png)
+
+<img src="./pinaryazgandashboard.JPG" />
+<br>
+<img src="./swat_dashboard.png" />
 
