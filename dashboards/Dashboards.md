@@ -1,1 +1,1 @@
-![Dashboar d] (swat_dashboard.png)
+![Dashboard] (swat_dashboard.png)
