@@ -7,4 +7,4 @@
 <br>
 <img src="./oscardashboard.png" />
 <br>
-<img src="./joaopinheiro.png" />
+<img src="./joaopinheiro.PNG" />
