@@ -1,0 +1,127 @@
+version: "3"
+
+services:
+  
+
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    
+   
+  # influxdb:
+  #   image: influxdb:2.1.1
+  #   volumes:
+  #     - influxdb-storage:/var/lib/influxdb2:rw
+  #   env_file:
+  #     - .env
+  #   entrypoint: ["./entrypoint.sh"]
+  #   restart: on-failure:10
+  #   ports:
+  #     - ${DOCKER_INFLUXDB_INIT_PORT}:8086
+  #   networks:
+  #     - comp
+
+  telegraf:
+    image: telegraf:1.19
+    volumes:
+      - ${TELEGRAF_CFG_PATH}:/etc/telegraf/telegraf.conf:rw
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    networks:
+      - comp
+
+  # grafana:
+  #   image: grafana/grafana-oss:8.4.3
+  #   volumes:
+  #     - grafana-storage:/var/lib/grafana:rw
+  #   depends_on:
+  #     - influxdb
+  #   ports:
+  #     - ${GRAFANA_PORT}:3000
+  #   networks:
+  #     - comp
+
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - comp
+
+  kafka:
+    image: 'bitnami/kafka:2.8.1'
+    ports:
+      - '9092:9092'
+    expose:
+      - "9093"
+    links:
+      - zookeeper:zookeeper
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_ADVERTISED_HOST_NAME=192.168.0.46 #your IP
+      - KAFKA_CREATE_TOPICS="elte"
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    networks:
+      - comp
+
+  kafka_manager:
+    image: hlebalbau/kafka-manager:stable
+    ports:
+      - "9000:9000"
+    links:
+      - zookeeper:zookeeper
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
+    networks:
+      - comp
+  
+  spark:
+    image: "jupyter/pyspark-notebook"
+    ports:
+      - '8888:8888'
+      - '4040:4040'
+      - '4041:4041'
+    links:
+      - "kafka:kafka-server" # allows spark notebook to discover kafka service by name "kafka-server"
+    volumes:
+      - type: bind
+        source: ./
+        target: /home/jovyan/work
+    networks:
+      - comp
+
+    depends_on:
+      - zookeeper 
+
+volumes:
+  grafana-storage:
+  influxdb-storage:
+
+networks:
+  comp:
+    driver: bridge
