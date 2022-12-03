@@ -1,0 +1,8 @@
+plotly==5.11.0
+dash==2.7.0
+dash-core-components==2.0.0
+dash-html-components==2.0.0
+dash-renderer==1.9.1
+dash-table==5.0.0
+gunicorn
+Flask==2.2.2

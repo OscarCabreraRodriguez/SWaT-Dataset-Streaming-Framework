@@ -1,6 +1,16 @@
 version: "3"
 
 services:
+  dashboard:
+    build: 
+      context: ./
+    container_name: ${COMPOSE_PROJECT_NAME}_dashboard
+    hostname: ${COMPOSE_PROJECT_NAME}_dashboard
+    restart: always
+    ports:
+      - 5000:80
+    networks:
+      - comp 
   influxdb:
     image: influxdb:2.1.1
     volumes:
