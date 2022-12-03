@@ -38,7 +38,7 @@ Data Collection at Secure Water Treatment (SWaT) Testbed
    Start time: 4:02:56 PM
    End time: 4:16:18 PM
 
-# Relted Aricles
+# Related Aricles
 
 - [Anomaly Detection for a Water Treatment System
   Using Unsupervised Machine Learning](https://arxiv.org/pdf/1709.05342.pdf)\
@@ -56,3 +56,7 @@ Data Collection at Secure Water Treatment (SWaT) Testbed
 - Haddad Philip
 - Yazgan Pinar
 - Joao Pinherio
+
+# Grafana Dashboard
+<img src="./dashboards/final_dashboard.png" />
+<br>
