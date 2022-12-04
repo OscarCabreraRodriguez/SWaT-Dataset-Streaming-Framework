@@ -26,6 +26,10 @@ Grafana, Plotly, and MongoDB combining them using Docker.
 
 ![pipeline](./data_pipeline.png)
 
+## Grafana Dashboard
+
+![Grafana](./dashboards/final_dashboard.png)
+
 ## Team members
 
 - Óscar Cabrera Rodríguez
@@ -34,6 +38,3 @@ Grafana, Plotly, and MongoDB combining them using Docker.
 - Yazgan Pinar
 - Joao Pinherio
 
-## Grafana Dashboard
-
-![Grafana](./dashboards/final_dashboard.png)
