@@ -23,8 +23,7 @@ Secure Water Treatment. We used different open-source technologies such as Kafka
 Grafana, Plotly, and MongoDB combining them using Docker.
 
 ## Framework Pipeline
-
-![pipeline]("./data_pipeline.png")
+![pipeline](./data_pipeline.png)
 
 ## Grafana Dashboard
 
