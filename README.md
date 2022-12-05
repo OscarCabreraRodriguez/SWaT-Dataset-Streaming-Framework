@@ -24,7 +24,7 @@ Grafana, Plotly, and MongoDB combining them using Docker.
 
 ## Framework Pipeline
 
-![pipeline](./data_pipeline.png)
+![pipeline](./Data pipeline.png)
 
 ## Grafana Dashboard
 
